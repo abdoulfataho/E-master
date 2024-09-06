@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebRTC Test</title>
+</head>
+<body>
+<style>
+    video {
+        width: 400px;
+        height: 400px;
+        background-color: black;
+    }
+</style>
+<h1>WebRTC Video</h1>
+<video id="localVideo" autoplay></video>
+<div id="remoteVideosContainer" autoplay></div>
+<video style="display:none" id="screenVideo" autoplay></video>
+<fieldset>
+    <input type="text" name="localUser" id="localUser" placeholder="Enter Your Name">
+    <button id="connectButton">Connect</button>
+</fieldset>
+<fieldset>
+    <input type="text" name="remoteUser" id="remoteUser" placeholder="User You Want To Call">
+    <button id="callButton">Call</button>
+</fieldset>
+
+<fieldset id="options">
+    <button id="hangUpButton">Hang Up</button>
+</fieldset>
+<button id="startButton">Start Sharing</button>
+<button id="stopButton">Stop Sharing</button>
+
+<button id="testConnection">Test Connection</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="websocket-video.js"></script>
+</body>
+</html>
