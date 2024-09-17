@@ -3,7 +3,7 @@ import edu from "../../assets/edu.png";
 import { GrUserExpert } from "react-icons/gr";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { FaBookReader } from "react-icons/fa";
-import { FadeUp } from "../hero/Hero";
+import { FadeUp } from "../Hero/Hero";
 import { motion } from "framer-motion";
 
 const About = () => {
