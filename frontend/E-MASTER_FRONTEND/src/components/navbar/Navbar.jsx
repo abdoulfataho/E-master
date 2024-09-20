@@ -93,13 +93,13 @@ const NavbarMenu = [
   },
   {
     id: 4,
-    title: " Join Us",
+    title: "Our Team",
     path: "/JoinUs", // Update the path to the correct value
   },
 ];
 
 const Navbar = () => {
-  const isUserSignedIn = false; // Replace with your logic to check if the user is signed in
+  const isUserSignedIn = true; // Replace with your logic to check if the user is signed in
 
   return (
     <nav className="relative z-20  bg-teal-900 text-neutral-50">

@@ -5,9 +5,9 @@ import Courses from '../courses/Courses'
 import SignupSignin from '../signup_signin/SignupSignin'
 import About from '../Banner/About' // Import the About component
 import Subscribe from '../Subscribe/Subscribe'
-import JoinUs from '../joinUs/JoinUs'
+import JoinUs from '../Banner/JoinUs'
 import Dashboard from '../courses/Dashboard'
-import CreateCourse from '../courses/CreateCourse'
+import Register from '../register/Register'
 function Routes() {
   return (
     <>
@@ -19,7 +19,7 @@ function Routes() {
             <Route path="/Subscribe" element={<Subscribe/>}  />
             <Route path="/JoinUs" element={<JoinUs/>}  />
             <Route path="/dashboard" element={<Dashboard/>}  />
-            <Route path="/CreateCourse" element={<CreateCourse/>}  />
+            <Route path="/register" element={<Register/>}  />
         </R>
     
     </>

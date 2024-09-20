@@ -1,148 +1,155 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
 
 const SignupSignin = () => {
-
-  const [isSignup, setIsSignup] = useState(true);
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    role: "STUDENT", // Default role
-    email: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('student');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = isSignup
-      ? "http://localhost:7071/users/register"
-      : "http://localhost:7071/users/login";
-  
-    const payload = isSignup ? formData : {
-      username: formData.username,
-      password: formData.password
-    };
+    setMessage('');
 
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });    
-      
-      if (response.ok) {
-        const data = await response.json();
-        console.log(isSignup ? "Registration successful" : "Login successful", data);
-        // Handle successful registration/login (e.g., store token, redirect)
-      } else {
-        const errorData = await response.json();
-        console.error("Error:", errorData);
-        // Handle errors (e.g., show error message to user)
+    if (isLogin) {
+      // Login logic
+      try {
+        const response = await fetch('http://localhost:7071/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+          mode: 'cors',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setMessage('Login successful!');
+          // Handle successful login (e.g., store token, redirect)
+        } else {
+          const errorData = await response.json();
+          setMessage(errorData.message || 'User doesn\'t exist. Please create an account.');
+        }
+      } catch (error) {
+        setMessage('An error occurred. Please try again.');
+        console.error('Fetch error:', error);
       }
-    } catch (error) {
-      console.error("Network Error:", error);
-      // Handle network errors
+    } else {
+      // Signup logic
+      try {
+        // First, check if the email already exists
+        const checkResponse = await fetch('http://localhost:7071/users/check-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (checkResponse.ok) {
+          const checkData = await checkResponse.json();
+          if (checkData.exists) {
+            setMessage('Email already exists. Please use a different email or log in.');
+            return;
+          }
+        } else {
+          throw new Error('Failed to check email');
+        }
+
+        // If email doesn't exist, proceed with registration
+        const registerResponse = await fetch('http://localhost:7071/users/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, username, password, role }),
+        });
+
+        if (registerResponse.ok) {
+          setMessage('Account created successfully! Please log in.');
+          setIsLogin(true);
+        } else {
+          const errorData = await registerResponse.json();
+          setMessage(errorData.message || 'Failed to create account. Please try again.');
+        }
+      } catch (error) {
+        setMessage('An error occurred. Please try again.');
+        console.error('Error:', error);
+      }
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md"
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          {isSignup ? "Sign Up" : "Sign In"}
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="username" className="block text-lg font-medium">
-              Username
-            </label>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold text-center mb-6">
+          {isLogin ? 'Sign In' : 'Create Account'}
+        </h1>
+        {message && (
+          <p className="text-center text-red-500 mb-4">{message}</p>
+        )}
+        <form onSubmit={handleSubmit}>
+          {!isLogin && (
             <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
+              type="email"
+              placeholder="Email"
+              className="border border-gray-300 p-2 mb-4 w-full rounded"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full p-3 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-          </div>
-          {isSignup && (
-            <>
-              <div>
-                <label htmlFor="email" className="block text-lg font-medium">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-3 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label htmlFor="role" className="block text-lg font-medium">
-                  Role
-                </label>
-                <select
-                  id="role"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-3 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="STUDENT">Student</option>
-                  <option value="INSTRUCTOR">Instructor</option>
-                </select>
-              </div>
-            </>
           )}
-          <div>
-            <label htmlFor="password" className="block text-lg font-medium">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
+          <input
+            type="text"
+            placeholder="Username"
+            className="border border-gray-300 p-2 mb-4 w-full rounded"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          {!isLogin && (
+            <select
+              className="border border-gray-300 p-2 mb-4 w-full rounded"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
               required
-              className="w-full p-3 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
-          >
-            {isSignup ? "Sign Up" : "Sign In"}
+            >
+              <option value="student">Student</option>
+              <option value="instructor">Instructor</option>
+            </select>
+          )}
+          <input
+            type="password"
+            placeholder="Password"
+            className="border border-gray-300 p-2 mb-4 w-full rounded"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button className="bg-red-500 text-white font-bold py-2 px-4 rounded w-full mb-4">
+            {isLogin ? 'Login' : 'Sign Up'}
           </button>
         </form>
-        <p className="mt-6 text-center">
-          {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
+        <p className="text-center">
+          {isLogin ? "Don't have an account? " : "Already have an account? "}
           <button
-            onClick={() => setIsSignup(!isSignup)}
-            className="text-blue-500 hover:underline"
+            className="text-red-500 font-semibold"
+            onClick={() => {
+              setIsLogin(!isLogin);
+              setMessage('');
+            }}
           >
-            {isSignup ? "Sign In" : "Sign Up"}
+            {isLogin ? 'Sign Up' : 'Sign In'}
           </button>
         </p>
-      </motion.div>
+      </div>
     </div>
   );
 };
 
 export default SignupSignin;
+

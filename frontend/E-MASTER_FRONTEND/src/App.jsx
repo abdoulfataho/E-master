@@ -2,12 +2,13 @@ import React from "react";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Routes from "./components/routes/Routes";
+import AuthNavbar from "./components/Navbar/AuthNavbar";
 
 const App = () => {
   return (
     <main className="overflow-x-hidden bg-white text-dark">
      
-     <Navbar />
+    <Navbar /> 
      <Routes/>
     <Footer />
       
