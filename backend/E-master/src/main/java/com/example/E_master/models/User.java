@@ -1,22 +1,23 @@
 package com.example.E_master.models;
 
+
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import java.util.List;
-
-@Getter
-@Setter
+@Data
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String email;
     private String username;
     private String password;
-    private String role; // "STUDENT" or "INSTRUCTOR"
+    private String role;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> sessionIds;
+    public User getUser() {
+        return this;
+    }
 }
+
+

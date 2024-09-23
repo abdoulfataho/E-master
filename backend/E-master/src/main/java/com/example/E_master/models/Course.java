@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 @Data
 @Getter
 @Setter
@@ -14,6 +15,7 @@ public class Course {
     private Integer id;
     private String title;
     private String description;
+    private String pdfPath;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")
