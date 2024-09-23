@@ -1,30 +1,29 @@
 import React from 'react'
-import { Route, Routes as R  } from 'react-router-dom'
-import Hero from '../Hero/Hero'
+import { Route, Routes } from 'react-router-dom'
 import Courses from '../courses/Courses'
-import SignupSignin from '../signup_signin/SignupSignin'
-import About from '../Banner/About' // Import the About component
+import CourseDetail from '../courses/CourseDetail'
+import Login from '../signup_signin/Login'
+import Signup from '../signup_signin/Signup'
 import Subscribe from '../Subscribe/Subscribe'
+import Home from '../Home/Home'
+import About from '../Banner/About'
 import JoinUs from '../Banner/JoinUs'
-import Dashboard from '../courses/Dashboard'
-import Register from '../register/Register'
-function Routes() {
+import Dashboard from '../Dashboard/Dashboard'
+
+const AppRoutes = () => {
   return (
-    <>
-        <R>
-            <Route path="/Home" element={<Hero/>}  />
-            <Route path="/courses" element={<Courses/>}  />
-            <Route path="/signin" element={<SignupSignin/>}  />
-            <Route path="/About" element={<About/>}  /> // Add the About component to the Route
-            <Route path="/Subscribe" element={<Subscribe/>}  />
-            <Route path="/JoinUs" element={<JoinUs/>}  />
-            <Route path="/dashboard" element={<Dashboard/>}  />
-            <Route path="/register" element={<Register/>}  />
-        </R>
-    
-    </>
+    <Routes>
+      <Route path="/course/:id" element={<CourseDetail />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/courses" element={<Courses />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/subscribe" element={<Subscribe />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/community" element={<JoinUs />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
+  );
+};
 
-  )
-}
-
-export default Routes
+export default AppRoutes;

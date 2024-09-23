@@ -1,146 +1,43 @@
-// import React from "react";
-// import { IoMdMenu } from "react-icons/io";
-// import { motion } from "framer-motion";
-// import { Link } from "react-router-dom";
-// import { FaUser } from 'react-icons/fa'
-// const NavbarMenu = [
-//   {
-//     id: 1,
-//     title: "Home",
-//     path: "/Home",
-//   },
-//   {
-//     id: 2,
-//     title: "Courses",
-//     path: "/Courses",
-//   },
-//   {
-//     id: 3,
-//     title: "About Us",
-//     path: "/About", // Update the path to the correct value
-//   },
-//   {
-//     id: 4,
-//     title: "Our Team",
-//     link: "/JoinUs", // Update the path to the correct value
-//   },
-//   {
-//     id: 5,
-//     title: "User Dashboard",
-//     link: "#",
-//   },
-// ];
-// const Navbar = () => {
-//   return (
-//     <nav className="relative z-20">
-//       <motion.div
-//         initial={{ opacity: 0, y: -50 }}
-//         animate={{ opacity: 1, y: 0 }}
-//         className="container py-10 flex justify-between items-center"
-//       >
-//         {/* Logo section */}
-//         <div>
-//           <h1 className="font-bold text-2xl ">E-Master</h1>
-//         </div>
-//         {/* Menu section */}
-//         <div className="hidden lg:block">
-//           <ul className="flex items-center gap-3">
-//             {NavbarMenu.map((menu) => (
-//               <li key={menu.id}>
-//                 <Link
-//                   to={menu.path}
-//                   className="inline-block py-2 px-3 hover:text-secondary relative group"
-//                 >
-//                   <div className="w-2 h-2 bg-secondary absolute mt-4 rounded-full left-1/2 -translate-x-1/2 top-1/2 bottom-0 group-hover:block hidden"></div>
-//                   {menu.title}
-//                 </Link>
-//               </li>
-//             ))}
-//             <Link to="/signin" className="primary-btn">Sign In</Link>
-//           </ul>
-//         </div>
-//         {/* Mobile Hamburger menu section */}
-//         <div className="lg:hidden">
-//           <IoMdMenu className="text-4xl" />
-//         </div>
-//       </motion.div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-import React from "react";
-import { IoMdMenu } from "react-icons/io";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { FaUser } from 'react-icons/fa'
-
-const NavbarMenu = [
-  {
-    id: 1,
-    title: "Home",
-    path: "/Home",
-  },
-  {
-    id: 2,
-    title: "Courses",
-    path: "/Courses",
-  },
-  {
-    id: 3,
-    title: "About Us",
-    path: "/About", // Update the path to the correct value
-  },
-  {
-    id: 4,
-    title: "Our Team",
-    path: "/JoinUs", // Update the path to the correct value
-  },
-];
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const Navbar = () => {
-  const isUserSignedIn = true; // Replace with your logic to check if the user is signed in
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
-    <nav className="relative z-20  bg-teal-900 text-neutral-50">
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="container py-10 flex justify-between items-center"
-      >
-        {/* Logo section */}
-        <div>
-          <h1 className="font-bold text-2xl ">E-Master</h1>
-        </div>
-        {/* Menu section */}
-        <div className="hidden lg:block">
-          <ul className="flex items-center gap-3">
-            {NavbarMenu.map((menu) => (
-              <li key={menu.id}>
-                <Link
-                  to={menu.path}
-                  className="inline-block py-2 px-3 hover:text-secondary relative group"
-                >
-                  <div className="w-2 h-2 bg-secondary absolute mt-4 rounded-full left-1/2 -translate-x-1/2 top-1/2 bottom-0 group-hover:block hidden"></div>
-                  {menu.title}
-                </Link>
-              </li>
-            ))}
-            {isUserSignedIn && (
-              <Link to="/dashboard" className="primary-btn">
-                Dashboard
-              </Link>
+    <nav className="bg-gray-800 p-4">
+      <div className="container mx-auto flex flex-wrap justify-between items-center">
+        <Link to="/" className="text-white text-xl font-bold">E-MASTER</Link>
+        <button 
+          onClick={() => setIsMenuOpen(!isMenuOpen)} 
+          className="lg:hidden text-white focus:outline-none"
+        >
+          <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+            {isMenuOpen ? (
+              <path fillRule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
+            ) : (
+              <path fillRule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
             )}
-            <Link to="/signin" className="primary-btn">
-              Sign In
-            </Link>
-          </ul>
-        </div>
-        {/* Mobile Hamburger menu section */}
-        <div className="lg:hidden">
-          <IoMdMenu className="text-4xl" />
-        </div>
-      </motion.div>
+          </svg>
+        </button>
+        <ul className={`${isMenuOpen ? 'block' : 'hidden'} lg:flex lg:items-center w-full lg:w-auto mt-4 lg:mt-0 space-y-2 lg:space-y-0 lg:space-x-4`}>
+          <li><Link to="/" className="block lg:inline-block text-white hover:text-gray-300 transition duration-300">Home</Link></li>
+          <li><Link to="/courses" className="block lg:inline-block text-white hover:text-gray-300 transition duration-300">Courses</Link></li>
+          <li><Link to="/about" className="block lg:inline-block text-white hover:text-gray-300 transition duration-300">About</Link></li>
+          <li><Link to="/subscribe" className="block lg:inline-block text-white hover:text-gray-300 transition duration-300">Subscribe</Link></li>
+          <li><Link to="/community" className="block lg:inline-block text-white hover:text-gray-300 transition duration-300">Our Community</Link></li>
+          <li><Link to="/dashboard" className="block lg:inline-block text-white hover:text-gray-300 transition duration-300">Dashboard</Link></li>
+          <li><button onClick={handleLogout} className="w-full lg:w-auto bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300">Logout</button></li>
+        </ul>
+      </div>
     </nav>
   );
 };

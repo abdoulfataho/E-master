@@ -1,10 +1,8 @@
 import React from "react";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import Blob from "../../assets/blob.svg";
-// import blog from "../../assets/blog.png";
-import { animate, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import blog2 from "../../assets/blog2.jpeg";
-
+import welcome from "../../assets/welcome.png";
 export const FadeUp = (delay) => {
   return {
     initial: {
@@ -27,55 +25,23 @@ export const FadeUp = (delay) => {
 
 const Hero = () => {
   return (
-    <section className="bg-light overflow-hidden relative">
-    
-      <div className="container grid grid-cols-1 md:grid-cols-2 min-h-[650px]">
-        {/* Brand Info */}
-        <div className="flex flex-col justify-center py-14 md:py-0 relative z-20">
-          <div className="text-center md:text-left space-y-10 lg:max-w-[400px]">
-            <motion.h1
-              variants={FadeUp(0.6)}
-              initial="initial"
-              animate="animate"
-              className="text-3xl lg:text-5xl font-bold !leading-snug"
-            >
-              Let's Start your learning{" "}
-              <span className="text-secondary">Journey</span> At E-Master
-            </motion.h1>
-            <motion.div
-              variants={FadeUp(0.8)}
-              initial="initial"
-              animate="animate"
-              className="flex justify-center md:justify-start"
-            >
-              <button className="primary-btn flex items-center gap-2 group">
-                Get Started
-                <IoIosArrowRoundForward className="text-xl group-hover:translate-x-2 group-hover:-rotate-45 duration-300" />
-              </button>
-            </motion.div>
-          </div>
-        </div>
-        {/* Hero Image */}
-        <div className="flex justify-center items-center ">
-          <motion.img
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: "easeInOut" }}
-            src={blog2}
-            alt=""
-            className="w-[600px] xl:w-[400px] relative z-10 drop-shadow h-[300px] md:h-[400px] object-cover"
-          />
-          <motion.img
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeInOut" }}
-            src={Blob}
-            alt=""
-            className="absolute -bottom-32 w-[800px] md:w-[1500px] z-[1] hidden md:block"
-          />
+    <div className="hero bg-gray-100 py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center">
+          <motion.div className="md:w-1/2 mb-8 md:mb-0" {...FadeUp(0.2)}>
+            <h1 className="text-4xl font-bold mb-4">Welcome to E-MASTER</h1>
+            <p className="text-xl mb-6">Start your learning journey today!</p>
+            <button className="bg-blue-500 text-white px-6 py-2 rounded-full flex items-center">
+              Get Started
+              <IoIosArrowRoundForward className="ml-2 text-2xl" />
+            </button>
+          </motion.div>
+          <motion.div className="md:w-1/2" {...FadeUp(0.4)}>
+            <img src={welcome} alt="E-learning" className="rounded-lg shadow-lg" />
+          </motion.div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
