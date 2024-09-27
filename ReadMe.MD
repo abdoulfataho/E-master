@@ -19,6 +19,8 @@ E-Master is an e-learning website designed to make tech education accessible to 
 - Browse available courses
 - Detailed course information pages
 
+
+
 ### 3. User Dashboard
 - View enrolled courses and progress
 
