@@ -33,3 +33,7 @@ E-Master is an e-learning website designed to make tech education accessible to 
 
 ### 7. Subscribe Feature
 - Allow users to subscribe for updates or newsletters
+
+LINK TO MY FIGMA :
+https://www.figma.com/design/QBKHm60aKzqXcEGj7HtKIC/E-learning?node-id=0-1&node-type=canvas&t=URqiqJGO74WM2Wpn-0
+
