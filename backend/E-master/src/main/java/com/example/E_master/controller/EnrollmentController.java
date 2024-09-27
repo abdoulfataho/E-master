@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
-@CrossOrigin(origins = "*") // Adjust this to match your frontend URL
+@RequestMapping("/enrollments")
 public class EnrollmentController {
 
     @Autowired
