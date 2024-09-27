@@ -12,12 +12,23 @@ import lombok.Setter;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
     private String title;
     private String description;
-    private String pdfPath;
+    private String objectives;
+    private String instructor;
+    private String duration;
 
-    @ManyToOne
-    @JoinColumn(name = "instructor_id")
-    private User instructor;
+    public void setPdfPath(String filePath) {
+    }
+
+    public String getPdfPath() {
+        return "";
+    }
+
+
+    // Add other fields as needed
+
+    // Getters and setters
 }

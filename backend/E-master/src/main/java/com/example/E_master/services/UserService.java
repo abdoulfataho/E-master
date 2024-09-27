@@ -84,7 +84,7 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        return userRepository.findById(Math.toIntExact(id))
+        return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 public  User CustomUserDetails(String username) {

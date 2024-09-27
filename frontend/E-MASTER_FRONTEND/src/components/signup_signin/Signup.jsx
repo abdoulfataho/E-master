@@ -45,15 +45,20 @@ const Signup = () => {
         body: JSON.stringify({ email, username, password, role }),
       });
 
+   
       if (registerResponse.ok) {
-        const data = await registerResponse.json();
-        if (typeof data.token === 'string') {
+    
           setMessage('Account created successfully! You are now logged in.');
-          login(data.token); // Log the user in
+          login("token"); // Log the user ins
           navigate('/'); // Redirect to home page
-        } else {
-          throw new Error('Invalid token received from server');
-        }
+        
+        // if (typeof data.token === 'string') {
+        //   setMessage('Account created successfully! You are now logged in.');
+        //   login(data.token); // Log the user in
+        //   navigate('/'); // Redirect to home page
+        // } else {
+        //   throw new Error('Invalid token received from server');
+        // }
       } else {
         // Try to parse the error response as JSON
         let errorData;
