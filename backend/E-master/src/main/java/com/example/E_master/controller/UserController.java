@@ -28,16 +28,24 @@ public class UserController {
         boolean exists = userService.emailExists(email);
         return ResponseEntity.ok().body(Map.of("exists", exists));
     }
-
+@GetMapping("user_Id")
+    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
+        User user = userService.findById(userId);
+        return ResponseEntity.ok(user);
+    }
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         try {
+            Map<String, Object> response = new HashMap<>();
             User registeredUser = userService.registerUser(user);
-            return ResponseEntity.ok().body("User registered successfully");
+            response.put("token", "tokenGranted");
+            response.put("userID", registeredUser.getId());
+            return ResponseEntity.ok().body(response);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.ok().body(e.getMessage());
         }
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> payload) {
@@ -46,11 +54,15 @@ public class UserController {
 
         try {
             String token = userService.loginUser(username, password);
+            User findUser = userService.findByUsername(username).get();
             if (token != null) {
                 Map<String, Object> response = new HashMap<>();
                 response.put("token", token);
                 response.put("username", username);
-                return ResponseEntity.ok(response);
+                response.put("message", "User logged in successfully");
+                response.put("userID", findUser.getId());
+                return ResponseEntity.ok().body(response);
+
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
             }

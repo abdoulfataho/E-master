@@ -20,9 +20,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/register", "/users/login","users/check-email","/courses/create","courses/allCourses","enrollments/{userId}/enroll","enrollments/{userId}/enrolled-courses").permitAll()
-                        .requestMatchers("/users/**").authenticated()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/users/register", "/users/login","users/check-email","/courses/create","/courses/allCourses","/enrollments/{userId}/enroll","/enrollments/{userId}/","/api/courses/create","/api/courses/allCourses","/api/courses/{id}","/api/courses","/users/user_Id").permitAll()
+                        .requestMatchers("enrollments/{userId}/enroll","enrollments/{userId}/enrolled-courses","/api/courses/create","/api/courses/allCourses","/api/courses/{id}","/api/courses","/enrollments/{userId}/courses").permitAll()
+                        .requestMatchers("/enrollments/{userId}/courses").permitAll()
+                        .anyRequest().permitAll()
                 );
         return http.build();
     }

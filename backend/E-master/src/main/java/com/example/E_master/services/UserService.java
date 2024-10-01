@@ -1,5 +1,5 @@
 package com.example.E_master.services;
-
+import com.example.E_master.dto.JwtUtil;
 import com.example.E_master.models.Course;
 import com.example.E_master.models.User;
 import com.example.E_master.repository.CourseRepository;
@@ -12,6 +12,7 @@ import com.example.E_master.repository.UserRepository;
 ////import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.E_master.dto.JwtUtil.generateToken;
 
 @Service
 public class UserService {
@@ -46,9 +49,9 @@ public class UserService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new Exception("User not found"));
 
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            // Generate and return a token (for simplicity, returning a dummy token)
-            return "dummy-token";
+        if (passwordEncoder.matches(password, user.getPassword()) && user.getUsername().equals(username)) {
+
+            return JwtUtil.generateToken(user.getId());
         } else {
             throw new Exception("Invalid username or password");
         }

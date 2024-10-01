@@ -31,6 +31,9 @@ public class User {
     public User getUser() {
         return this;
     }
+
+    public User orElseThrow(Object userNotFound) {return this;
+    }
 }
 
 

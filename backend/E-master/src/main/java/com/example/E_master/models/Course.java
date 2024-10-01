@@ -2,12 +2,10 @@ package com.example.E_master.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
+import java.util.List;
 
 @Data
-@Getter
-@Setter
 @Entity
 public class Course {
     @Id
@@ -20,15 +18,12 @@ public class Course {
     private String instructor;
     private String duration;
 
-    public void setPdfPath(String filePath) {
-    }
+    // Add these fields to match the frontend expectations
+    private String icon;
 
-    public String getPdfPath() {
-        return "";
-    }
+    @ElementCollection
+    private List<String> learningOutcomes;
 
-
-    // Add other fields as needed
-
-    // Getters and setters
+    @ElementCollection
+    private List<String> content;
 }
