@@ -22,11 +22,19 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (typeof data.token === 'string') {
-          login(data.token);
+      /// So we want to store some sort of consitenscey that tells when our user is logged in or noot
+      //You can set this consentency in the local storage
+      //what is this response returning?
+     let data = await response.json();
+     console.log(data)
+      if (data.userID) {
+        // const data = await response.json();
+        if (typeof data.token === 'string' && data.token.length > 0) {
+          login(data.token, data.user);
+          localStorage.setItem('userID', data.userID);
+          console.log(data.token);
           setMessage('Login successful!');
+        
           navigate('/dashboard');
         } else {
           throw new Error('Invalid token received from server');

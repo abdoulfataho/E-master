@@ -24,7 +24,7 @@ Your Gateway to Mastery in Every Skill.
 Explore Courses | Build Projects | Achieve Your Goals
             </p>
             <a
-              href="https://chat.whatsapp.com/FQSKgJ5f1eIAhlyF5sVym0"
+              href="https://t.me/+Eb2yWxPMDUxhYWQ5"
               className="primary-btn !mt-8"
             >
               Join Now

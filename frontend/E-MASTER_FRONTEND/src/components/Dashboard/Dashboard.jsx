@@ -4,34 +4,49 @@ import { useAuth } from '../../context/AuthContext';
 
 const Dashboard = () => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
-  const { user, isAuthenticated, token } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const { isAuthenticated, token } = useAuth();
 
   useEffect(() => {
     const fetchEnrolledCourses = async () => {
+      const userID = localStorage.getItem('userID');
+      
+  
+
       try {
-        if (!user || !user.id) return;
-        const response = await fetch(`http://localhost:7071/users/${user.id}/enrolled-courses`, {
+        console.log('Fetching enrolled courses for user ID:', userID);
+        const response = await fetch(`http://localhost:7071/enrollments/${userID}/courses`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
         if (response.ok) {
           const data = await response.json();
+          console.log('Enrolled courses data:', data);
           setEnrolledCourses(data);
+        } else {
+          console.error('Failed to fetch enrolled courses:', response.statusText);
         }
       } catch (error) {
         console.error('Error fetching enrolled courses:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    if (isAuthenticated) {
-      fetchEnrolledCourses();
-    }
-  }, [user, isAuthenticated, token]);
+    fetchEnrolledCourses();
+  }, [token]);
 
   if (!isAuthenticated) {
+    console.log('Redirecting to login page');
     return <Navigate to="/login" />;
   }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log('Rendering dashboard with', enrolledCourses.length, 'enrolled courses');
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -2,6 +2,7 @@ import React from "react";
 import { FaBell } from "react-icons/fa";
 import BgImage from "../../assets/bg.png";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const bgStyle = {
   backgroundImage: `url(${BgImage})`,
@@ -30,15 +31,12 @@ const Subscribe = () => {
               450K+ Students are learning from us
             </h1>
             <p>
-            Join the E-MASTER community today and start your journey towards tech mastery. Subscribe now to unlock your potential and pave the way for a brighter, tech-savvy future!
+              Join the E-MASTER community today and start your journey towards tech mastery. Subscribe now to unlock your potential and pave the way for a brighter, tech-savvy future!
             </p>
-            <a
-              href=""
-              className="primary-btn !mt-8 inline-flex items-center gap-4 group"
-            >
+            <Link to="/get-in-touch" className="primary-btn !mt-8 inline-flex items-center gap-4 group">
               Subscribe Now
               <FaBell className="group-hover:animate-bounce group-hover:text-lg duration-200" />
-            </a>
+            </Link>
           </div>
         </motion.div>
       </motion.div>

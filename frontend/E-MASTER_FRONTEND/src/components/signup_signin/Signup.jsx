@@ -44,11 +44,14 @@ const Signup = () => {
         },
         body: JSON.stringify({ email, username, password, role }),
       });
-
+let data =  await registerResponse.json();
+console.log(data)
    
-      if (registerResponse.ok) {
+      if (data.userID) {
     
           setMessage('Account created successfully! You are now logged in.');
+          localStorage.setItem('userID', data.userID); // Store the token in local storage
+
           login("token"); // Log the user ins
           navigate('/'); // Redirect to home page
         
@@ -59,7 +62,9 @@ const Signup = () => {
         // } else {
         //   throw new Error('Invalid token received from server');
         // }
-      } else {
+      } 
+
+      else {
         // Try to parse the error response as JSON
         let errorData;
         try {

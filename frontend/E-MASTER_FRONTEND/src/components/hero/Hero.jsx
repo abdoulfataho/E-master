@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect}from "react";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { motion } from "framer-motion";
 import blog2 from "../../assets/blog2.jpeg";
@@ -23,7 +23,15 @@ export const FadeUp = (delay) => {
   };
 };
 
+
+  
+
 const Hero = () => {
+  useEffect(() => {
+    console.log("We have this user saved with this User ID: "+  localStorage.getItem('userID'));
+    
+   
+   }, [])
   return (
     <div className="hero bg-gray-100 py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
