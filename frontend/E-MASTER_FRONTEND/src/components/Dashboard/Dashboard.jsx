@@ -24,6 +24,9 @@ const Dashboard = () => {
           const data = await response.json();
           console.log('Enrolled courses data:', data);
           setEnrolledCourses(data);
+          console.log('Enrolled courses:', enrolledCourses[0]);
+          console.log('Enrolled courses data:', data[0]);
+          console.log("title", data[0].id);
         } else {
           console.error('Failed to fetch enrolled courses:', response.statusText);
         }
@@ -40,6 +43,7 @@ const Dashboard = () => {
   if (!isAuthenticated) {
     console.log('Redirecting to login page');
     return <Navigate to="/login" />;
+    let courseId = localStorage.setItem('courseId', course.id);
   }
 
   if (isLoading) {
@@ -48,6 +52,7 @@ const Dashboard = () => {
 
   console.log('Rendering dashboard with', enrolledCourses.length, 'enrolled courses');
 
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">My Dashboard</h1>
@@ -55,13 +60,14 @@ const Dashboard = () => {
         <p>You haven't enrolled in any courses yet.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {enrolledCourses.map((course) => (
+          {enrolledCourses.map((course,i) => (
             <div key={course.id} className="bg-white shadow-md rounded-lg p-6">
               <h2 className="text-xl font-semibold mb-2">{course.title}</h2>
               <p className="text-gray-600 mb-4">{course.description}</p>
               <Link 
-                to={`/course/${course.id}/learn`} 
+                to={`/course/${enrolledCourses[i].id}/learn`} 
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+            
               >
                 Start Learning
               </Link>

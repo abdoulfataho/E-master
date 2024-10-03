@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import { TbWorldWww } from "react-icons/tb";
 import { motion } from "framer-motion";
@@ -54,7 +55,7 @@ const Footer = () => {
                     About
                   </li>
                   <li className="cursor-pointer hover:text-secondary duration-200">
-                    Contact
+                    <Link to="/contact" className="hover:text-secondary duration-200">Contact</Link>
                   </li>
                 </ul>
               </div>
@@ -69,9 +70,12 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="p-3 rounded-s-xl bg-white w-full py-4 focus:ring-0 focus:outline-none placeholder:text-dark2"
               />
-              <button className="bg-cyan-700 text-white font-semibold py-4 px-6 rounded-e-xl">
+              <Link 
+                to="/contact"
+                className="bg-cyan-700 text-white font-semibold py-4 px-6 rounded-e-xl"
+              >
                 Go
-              </button>
+              </Link>
             </div>
             {/* social icons */}
             <div className="flex space-x-6 py-3">

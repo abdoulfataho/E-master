@@ -27,7 +27,7 @@ const SlideLeft = (delay) => {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.5,
         delay: delay,
         ease: "easeInOut",
       },
@@ -55,7 +55,7 @@ const Courses = () => {
           {courses.map((course) => (
             <motion.div
               key={course.id}
-              variants={SlideLeft(0.2)} // Using a fixed delay as we don't have a delay property in the backend model
+              variants={SlideLeft(0.5)} // Using a fixed delay as we don't have a delay property in the backend model
               initial="initial"
               animate="animate"
               className="bg-[#f4f4f4] rounded-2xl flex flex-col gap-4 items-center justify-center p-6 hover:bg-secondary hover:scale-105 duration-300 hover:shadow-2xl"

@@ -33,7 +33,7 @@ const Subscribe = () => {
             <p>
               Join the E-MASTER community today and start your journey towards tech mastery. Subscribe now to unlock your potential and pave the way for a brighter, tech-savvy future!
             </p>
-            <Link to="/get-in-touch" className="primary-btn !mt-8 inline-flex items-center gap-4 group">
+            <Link to="/contact" className="primary-btn !mt-8 inline-flex items-center gap-4 group">
               Subscribe Now
               <FaBell className="group-hover:animate-bounce group-hover:text-lg duration-200" />
             </Link>

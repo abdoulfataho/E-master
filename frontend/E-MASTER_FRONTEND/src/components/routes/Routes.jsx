@@ -9,6 +9,8 @@ import Home from '../Home/Home'
 import About from '../Banner/About'
 import JoinUs from '../Banner/JoinUs'
 import Dashboard from '../Dashboard/Dashboard'
+import CourseContent from '../courses/CourseContent'
+import ContactUs from '../contact/ContactUs'
 
 const AppRoutes = () => {
   return (
@@ -22,6 +24,8 @@ const AppRoutes = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/community" element={<JoinUs />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/course/:courseId/learn" element={<CourseContent />} />
+      <Route path="/contact" element={<ContactUs />} />
     </Routes>
   );
 };

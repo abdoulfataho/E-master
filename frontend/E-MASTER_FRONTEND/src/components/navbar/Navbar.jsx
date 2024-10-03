@@ -14,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-cyan-700 p-4">
       <div className="container mx-auto flex flex-wrap justify-between items-center">
         <Link to="/" className="text-white text-xl font-bold">E-MASTER</Link>
         <button 

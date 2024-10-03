@@ -55,7 +55,7 @@ const CourseDetail = () => {
 
       if (response.ok) {
         setIsEnrolled(true);
-        alert("You have successfully enrolled in the course!");
+        alert("Congratulations! You have successfully enrolled in this Course!");
         navigate('/dashboard', { state: { refreshEnrollments: true } });
       } else {
         const errorMessage = responseData ? JSON.parse(responseData).message : 'Unknown error occurred';
@@ -77,7 +77,7 @@ const CourseDetail = () => {
             <h2 className="text-2xl font-bold mb-2 text-blue-400">Course Objectives</h2>
             <p className="text-lg text-gray-300">{course.objectives}</p>
           </div>
-          {/* Remove or adjust the following sections as they're not in your Course model */}
+        
            <div className="mb-6">
             <h2 className="text-2xl font-bold mb-2 text-blue-400">What You Will Learn</h2>
             <ul className="list-disc list-inside mb-4 text-gray-300">
