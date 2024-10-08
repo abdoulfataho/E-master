@@ -17,8 +17,8 @@ public class Course {
     private String objectives;
     private String instructor;
     private String duration;
+    private String courseUrl;
 
-    // Add these fields to match the frontend expectations
     private String icon;
 
     @ElementCollection
